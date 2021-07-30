@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { Note } from './components/Note';
 
-function App(props) {
-  const [notes, setNotes] = useState(props.notes);
+function App() {
+  const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState('');
   const [showAll, setShowAll] = useState(true);
 
@@ -27,6 +28,16 @@ function App(props) {
   const toggleFilter = () => {
     setShowAll(!showAll);
   };
+
+  // llamada al servidor
+  useEffect(() => {
+    axios.get('http://localhost:3001/notes').then((response) => {
+      const notes = response.data;
+      console.log('promise fulfulled');
+      setNotes(notes);
+    });
+  }, []);
+  console.log('render', notes.length, 'notes');
 
   return (
     <div>
