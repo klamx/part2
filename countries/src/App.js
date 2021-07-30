@@ -17,11 +17,22 @@ function App() {
     setSearch(e.target.value);
   };
 
+  const handleShow = (e) => {
+    setSearch(e.target.value);
+  };
+
   return (
     <div>
       <div>
         find countries:{' '}
         <input type='text' value={search} onChange={handleCountry} />
+        <button
+          onClick={() => {
+            setSearch('');
+          }}
+        >
+          clean
+        </button>
       </div>
       <div>
         {countries.length >= 10 ? (
@@ -51,7 +62,14 @@ function App() {
           )
         ) : (
           countries.map(({ name, numericCode }) => {
-            return <p key={numericCode}>{name}</p>;
+            return (
+              <div style={{ marginTop: '3px' }}>
+                <span key={numericCode}>{name}</span>{' '}
+                <button value={name} onClick={handleShow}>
+                  show
+                </button>
+              </div>
+            );
           })
         )}
       </div>
