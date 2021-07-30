@@ -4,24 +4,24 @@ function App() {
   const [persons, setPersons] = useState([
     {
       name: 'Arto Hellas',
+      number: '040-1234567',
     },
   ]);
 
-  const [newName, setNewName] = useState('');
+  const [newPerson, setNewPerson] = useState({ name: '', number: '' });
 
   const addPerson = (e) => {
     e.preventDefault();
-    if (persons.some((person) => person.name === newName)) {
-      alert(`${newName} is already added to phonebook`);
+    if (persons.some((person) => person.name === newPerson.name)) {
+      alert(`${newPerson.name} is already added to phonebook`);
       return;
     }
-    const newPerson = { name: newName };
     setPersons([...persons, newPerson]);
-    setNewName('');
+    setNewPerson({ name: '', number: '' });
   };
 
-  const handleNewName = (e) => {
-    setNewName(e.target.value);
+  const handleNewPerson = (e) => {
+    setNewPerson({ ...newPerson, [e.target.name]: e.target.value });
   };
 
   return (
@@ -29,7 +29,24 @@ function App() {
       <h2>Phonebook</h2>
       <form onSubmit={addPerson}>
         <div>
-          name: <input type='text' value={newName} onChange={handleNewName} />
+          <div>
+            name:{' '}
+            <input
+              type='text'
+              value={newPerson.name}
+              onChange={handleNewPerson}
+              name='name'
+            />
+          </div>
+          <div>
+            number:{' '}
+            <input
+              type='text'
+              value={newPerson.number}
+              onChange={handleNewPerson}
+              name='number'
+            />
+          </div>
         </div>
         <div>
           <button type='submit'>add</button>
@@ -39,9 +56,9 @@ function App() {
       <div>
         {persons.map((person) => {
           return (
-            <p key={person.name}>
-              <b>{person.name}</b>
-            </p>
+            <div key={person.name}>
+              {person.name} {person.number}
+            </div>
           );
         })}
       </div>
