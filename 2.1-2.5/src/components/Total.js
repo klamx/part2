@@ -6,5 +6,5 @@ export const Total = ({ course }) => {
     return { exercises: a.exercises + b.exercises };
   });
   console.log(total);
-  return <p>Number of exercises {total.exercises}</p>;
+  return <p><b>total of exercises {total.exercises}</b></p>;
 };
