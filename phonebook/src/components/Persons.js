@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const Persons = ({ filteredPersons, filter, persons }) => {
-  if (!filteredPersons.length) {
+  if ((!filteredPersons.length && filter) || !persons.length) {
     return <p>No matches found</p>;
   }
   return (
